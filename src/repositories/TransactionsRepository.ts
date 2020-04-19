@@ -15,20 +15,18 @@ class TransactionsRepository extends Repository<Transaction> {
 
     const income = (await transactions)
       .filter(transaction => transaction.type === 'income')
-      .map(item => item.value)
-      .map(item => Number(item))
-      .reduce((accum, curr) => accum + curr, 0);
+      .reduce((sum, actual) => sum + actual.value, 0);
 
     const outcome = (await transactions)
       .filter(transaction => transaction.type === 'outcome')
-      .map(item => item.value)
-      .map(item => Number(item))
-      .reduce((accum, curr) => accum + curr, 0);
+      .reduce((sum, actual) => sum + actual.value, 0);
+
+    const total = income - outcome;
 
     const balance = {
       income,
       outcome,
-      total: income - outcome,
+      total,
     };
 
     return balance;

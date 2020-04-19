@@ -21,10 +21,10 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column('int')
+  @Column()
   value: number;
 
-  @Column('uuid')
+  @Column()
   category_id: string;
 
   @ManyToOne(() => Category)
